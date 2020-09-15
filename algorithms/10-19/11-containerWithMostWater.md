@@ -11,37 +11,63 @@
 输出：49
 
 // 采用双指针的方法，从两边往中间寻找
+
 func maxArea(height []int) int {
+
     if len(height) < 2 {
+    
         return 0
     }
+    
     i := 0
+    
     j := len(height) -1 
+    
     cap := (j-i) * min(height[i],height[j])
+    
     for i < j {
+    
         if height[i] < height[j] {
+        
             i++
+            
         }else if height[j] <= height[j] {
+        
             j--
+            
         }
         if i < j {
+        
             cap = max(cap,(j-i)*min(height[i],height[j]))
+            
         }
         
     }
+    
     return cap
+    
 }
 
 func max(a,b int) int {
+
     if a > b {
+    
         return a
+        
     }
+    
     return b
+    
 }
 
 func min(a,b int) int {
+
     if a < b {
+    
         return a
+        
     }
+    
     return b 
+    
 }
