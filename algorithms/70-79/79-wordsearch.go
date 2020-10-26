@@ -1,3 +1,4 @@
+//dfs(u,i,j)word的第u个单词开始搜索，当前搜索位置是board[i][j]
 func exist(board [][]byte, word string) bool {
     
     var dx []int = []int{-1,0,1,0} 
