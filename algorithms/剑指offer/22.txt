@@ -1,0 +1,24 @@
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+//也是利用的双指针，可以用来判断是不是存在循环链表
+func getKthFromEnd(head *ListNode, k int) *ListNode {
+    p := &ListNode{-1,nil}
+    p.Next = head
+    q := head
+    n := k
+    for n >=0 {
+        p = p.Next
+        n--
+    }
+    for p != nil {
+        p = p.Next
+        q = q.Next
+    }
+    return q
+
+}

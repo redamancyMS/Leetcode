@@ -1,0 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+    if head == nil || head.Next == nil {
+        return head
+    }
+    dummy := &ListNode{-1,nil}
+    for head != nil {
+        temp := &ListNode{Val:head.Val,Next:nil}
+        temp.Next = dummy.Next
+        dummy.Next = temp
+        head = head.Next
+    }
+    return dummy.Next
+}
+
+//方法二
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+    var pre,nex,cur *ListNode
+    cur = head
+    if cur == nil {
+        return nil
+    }
+    if cur.Next == nil {
+        return cur
+    }
+    nex = cur.Next
+    pre = nil
+    for cur.Next != nil {
+        cur.Next = pre
+        pre = cur
+        cur = nex
+        nex = nex.Next
+    }
+    cur.Next = pre
+    return cur
+}

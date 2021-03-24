@@ -1,0 +1,32 @@
+func permutation(s string) []string {
+    n := len(s)
+    str := []rune(s)
+    sort.Slice(str,func(i,j int)bool{
+        return str[i] < str[j]
+    })
+    var ans []string
+    path := []rune("")
+    var is_used []bool = make([]bool,n)
+
+    var dfs func(int) 
+    dfs = func(u int) {
+        if u == n {
+            ans = append(ans,string(path))
+        }
+        for i := 0 ; i < n ; i++ {
+            if is_used[i] || i > 0 && !is_used[i-1] && str[i-1] == str[i] {
+                continue
+            }
+            if !is_used[i] {
+                path = append(path,str[i])
+                is_used[i] = true
+                dfs(u+1)
+                is_used[i] = false
+                path = path[:len(path)-1]
+            }
+        }
+    }
+    dfs(0)
+    return ans
+
+}

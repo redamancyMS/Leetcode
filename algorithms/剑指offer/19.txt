@@ -1,0 +1,26 @@
+//dp[i][j] 表示s[1...i]和p[1...j]是否匹配
+func isMatch(s string, p string) bool {
+    m := len(s)
+    n := len(p)
+    s = " " + s
+    p = " " + p
+    var dp [][]bool = make([][]bool,m+1)
+    for i := 0 ; i <= m ; i++ {
+        dp[i] = make([]bool,n+1)
+    }
+    dp[0][0] = true
+    for i := 0 ; i < m+1 ; i++ {
+        for j := 1 ; j < n+1 ; j++ {
+            if j+1 <= n && p[j+1]=='*'{
+                continue
+            }
+            if p[j] != '*'{
+                dp[i][j] = i > 0 && dp[i-1][j-1] && (s[i]==p[j]||p[j]=='.')
+            }else{
+                dp[i][j] = j > 1 && dp[i][j-2] || 
+                i > 0 && dp[i-1][j] &&(s[i]==p[j-1]||p[j-1]=='.')
+            }
+        }
+    }
+    return dp[m][n]
+}

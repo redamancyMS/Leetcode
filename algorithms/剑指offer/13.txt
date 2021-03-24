@@ -1,0 +1,46 @@
+//bfs
+func compute_siglenum(a int) int{
+    sum := 0 
+    for a != 0 {
+        sum += a % 10
+        a = a/10
+    }
+    return sum
+}
+
+func compute_doublenum(arr []int) int{
+    s := 0
+    s += compute_siglenum(arr[0])
+    s += compute_siglenum(arr[1])
+    return s
+}
+func movingCount(m int, n int, k int) int {
+    if m < 0 || n < 0 {
+        return 0
+    }
+    res := 0
+    var dx []int = []int{-1,0,1,0}
+    var dy []int = []int{0,1,0,-1}
+    var isUse [][]bool = make([][]bool,m)
+    for i := 0 ; i < m ; i++ {
+        isUse[i] = make([]bool,n)
+    }
+    var queue [][]int
+    queue = append(queue,[]int{0,0})
+    for len(queue) > 0 {
+        t := queue[0]
+        queue = queue[1:]
+        if compute_doublenum(t) > k || isUse[t[0]][t[1]] {continue}
+        res++
+        isUse[t[0]][t[1]] = true
+        for i := 0 ; i < 4 ; i++ {
+            a := t[0] + dx[i]
+            b := t[1] + dy[i]
+            if a >=0 && a < m && b >= 0 && b < n {
+                queue = append(queue,[]int{a,b})
+            }
+        }
+    }
+    return res
+
+}

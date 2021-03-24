@@ -1,0 +1,24 @@
+func verifyPostorder(postorder []int) bool {
+    if len(postorder) <= 2 {
+        return true
+    }
+    
+    return dfs(postorder,0,len(postorder)-1)
+}
+
+func dfs(postorder []int,l int,r int) bool {
+        if l >= r {
+            return true
+        }
+        root := postorder[r]
+        k := l
+        for k < r && postorder[k] < root {
+            k++
+        }
+        for i := k ; i < r ; i++ {
+            if postorder[i] < root {
+                return false
+            }
+        }
+        return dfs(postorder,l,k-1) && dfs(postorder,k,r-1)
+}

@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+ //二叉树的层次遍历
+func levelOrder(root *TreeNode) []int {
+
+    var ans []int
+    if root == nil {
+        return ans
+    }
+    var queue []*TreeNode
+    queue = append(queue,root)
+    for len(queue) > 0 {
+        var q []*TreeNode
+        for i := 0 ; i < len(queue) ; i++ {
+            root = queue[i]
+            ans = append(ans,root.Val)
+            if root.Left != nil {
+                q = append(q,root.Left)
+            }
+            if root.Right != nil {
+                q = append(q,root.Right)
+            }
+        }
+        queue = q
+    }
+    return ans
+}

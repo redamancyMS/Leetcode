@@ -1,0 +1,24 @@
+/*
+本题的结论是：要将n划分成尽量多的3
+            如果n%3 = 1,则将n先拆出两个2，剩余的再划分成3
+            如果n%3 = 2,则将n先拆出1个2，剩余的都划分成3
+*/
+func cuttingRope(n int) int {
+     if n == 2 || n == 3{
+        return n-1
+    }
+    ans := 1
+    N := n
+    if N % 3 == 1 {
+        ans *= 4
+        N -= 4
+    }else if N % 3 == 2 {
+        ans *= 2
+        N -= 2
+    }
+    for N != 0 {
+            ans *= 3
+            N -= 3
+    }  
+    return ans
+}

@@ -1,0 +1,7 @@
+func printNumbers(n int) []int {
+    var ans []int
+    for i := 1.0 ; i < math.Pow(10,float64(n)) ; i++ {
+        ans = append(ans,int(i))
+    }
+    return ans
+}

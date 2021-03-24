@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func isSubStructure(A *TreeNode, B *TreeNode) bool {
+   if A == nil && B == nil {
+       return true
+   }
+   if A == nil || B == nil {
+       return false
+   }
+   if isPart(A,B) {
+       return true
+   }
+   return isSubStructure(A.Left,B) || isSubStructure(A.Right,B)
+}
+
+func isPart(p,q *TreeNode) bool {
+    if q == nil {
+        return true
+    }
+    if p == nil || p.Val != q.Val {
+        return false
+    }
+    return isPart(p.Left,q.Left) && isPart(p.Right,q.Right)
+}

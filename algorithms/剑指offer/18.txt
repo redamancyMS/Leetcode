@@ -1,0 +1,28 @@
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func deleteNode(head *ListNode, val int) *ListNode {
+    dummy := &ListNode{Val:-1,Next:nil}
+    dummy.Next = head
+    pr := dummy
+    if head == nil {
+        return nil
+    }
+    p := head
+    for p != nil && p.Val != val {
+        pr = p
+        p = p.Next
+    }
+    if p != nil {
+        pr.Next = p.Next
+        p.Next = nil
+    }
+    return dummy.Next
+
+
+    
+}
