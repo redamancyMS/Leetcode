@@ -1,0 +1,15 @@
+func maxSubArray(nums []int) int {
+    var ans = math.MinInt32
+    for i,tmp:= 0,0 ; i < len(nums) ; i++ {
+        tmp = nums[i] + max(tmp,0)
+        ans = max(ans,tmp)
+    }
+    return ans 
+}
+
+func max(a,b int) int{
+    if a > b {
+        return a
+    }
+    return b
+}
