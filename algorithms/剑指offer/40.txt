@@ -1,0 +1,9 @@
+func getLeastNumbers(arr []int, k int) []int {
+    sort.Ints(arr)
+    var ans []int
+    if k == 0 || len(arr) == 0 {
+        return ans
+    }
+    ans = arr[:k]
+    return ans
+}
