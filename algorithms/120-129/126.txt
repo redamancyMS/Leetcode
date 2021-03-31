@@ -1,0 +1,72 @@
+//将其转换成图论问题，无向图，边权为1，可以用BFS来求最短路，用DFS来求路径
+func findLadders(beginWord string, endWord string, wordList []string) [][]string {
+    var S = make(map[string]bool) // 用来判断单词是不是在wordList中
+    var dist = make(map[string]int) //用来存储每个点到起点的最短距离
+    var queue []string //队列，用来存储图中的点
+    var ans [][]string //用来存储最终的结果
+    var path []string //用来存储每次查找的结果
+    for _,word := range wordList {
+        S[word] = true
+    }
+    if !S[endWord] {
+        return [][]string{}
+    }
+    dist[beginWord] = 0
+    queue = append(queue,beginWord)
+
+    for len(queue) > 0 {
+        t := queue[0]
+        queue = queue[1:]
+        r := t
+        //s := []rune(t)
+        for i := 0 ; i < len(t) ; i++ {
+            v := []rune(r)
+            for j := 'a' ; j <= 'z' ;j++ {
+                //if j != s[i] {
+                    v[i] = j
+                    if S[string(v)] {
+                        if _,ok := dist[string(v)];!ok {
+                            dist[string(v)] = dist[r]+1
+                            if string(v) == endWord {break}
+                            queue = append(queue,string(v))
+                        }
+                    }
+                //}
+            }
+        }
+    }
+    var dfs func(string,string)
+    dfs = func(st string,ed string){
+    if st == ed {
+        ans = append(ans,append([]string(nil),path...)) 
+        //ans = append(ans,path)
+        return 
+    }
+    r := st
+    //s := []rune(st)
+    for i := 0 ; i < len(st) ; i++ {
+        v := []rune(r)
+        for j := 'a' ; j<= 'z' ; j++ {
+            //if j != s[i]{
+                v[i] = j
+                if S[string(v)]{
+                    if dist[r]+1 == dist[string(v)]{
+                        path = append(path,string(v))
+                        dfs(string(v),ed)
+                        path = path[:len(path)-1]
+                    }
+                } 
+            //}
+        }
+    }
+    
+    }
+
+    if _,ok := dist[endWord];ok {
+        path = append(path,beginWord)
+        dfs(beginWord,endWord)
+    }
+   
+    return ans
+
+}

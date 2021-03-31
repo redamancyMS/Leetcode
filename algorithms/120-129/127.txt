@@ -1,0 +1,35 @@
+
+func ladderLength(beginWord string, endWord string, wordList []string) int {
+    var S = make(map[string]bool) // 用来判断单词是不是在wordList中
+    var dist = make(map[string]int) //用来存储每个点到起点的最短距离
+    for _,word := range wordList {
+        S[word] = true
+    }
+    var queue []string
+    dist[beginWord] = 0
+    queue = append(queue,beginWord)
+
+    for len(queue) > 0 {
+        t := queue[0]
+        queue = queue[1:]
+        r := t
+        //s := []rune(t)
+        for i := 0 ; i < len(t) ; i++ {
+            v := []rune(r)
+            for j := 'a' ; j <= 'z' ;j++ {
+                //if j != s[i] {
+                    v[i] = j
+                    if S[string(v)] {
+                        if _,ok := dist[string(v)];!ok {
+                            dist[string(v)] = dist[r]+1
+                            if string(v) == endWord {return dist[string(v)]+1}
+                            queue = append(queue,string(v))
+                        }
+                    }
+                //}
+            }
+        }
+    }
+   
+    return 0
+}
