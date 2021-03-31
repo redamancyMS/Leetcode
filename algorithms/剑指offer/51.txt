@@ -1,0 +1,38 @@
+//这是归并排序的一个特殊的例子，使用的是归并排序的模板，在归并排序的过程中将逆序对统计出来
+func reversePairs(nums []int) int {
+    return merge(nums,0,len(nums)-1)
+}
+
+func merge(nums []int, l int, r int) int {
+    if l >= r {
+        return 0
+    }
+    mid := (l+r)/2
+    ans := merge(nums,l,mid) + merge(nums,mid+1,r)
+    i,j := l,mid+1
+    tmp := []int{}
+    for i <= mid && j <= r {
+        if nums[i] <= nums[j] {
+            tmp = append(tmp,nums[i])
+            i++
+        }else{
+            tmp = append(tmp,nums[j])
+            j++
+            ans += mid-i+1
+        }
+    }
+    for i <= mid {
+        tmp = append(tmp,nums[i])
+        i++
+    }
+    for j <= r {
+        tmp = append(tmp,nums[j])
+        j++
+    }
+    i = l
+    for _,val := range(tmp) {
+        nums[i] = val
+        i++
+    }
+    return ans
+}
