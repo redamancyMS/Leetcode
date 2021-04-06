@@ -1,0 +1,15 @@
+func singleNumbers(nums []int) []int {
+    var hash = make(map[int]int)
+    ans := []int{}
+   for _,val := range nums {
+       if _,ok := hash[val]; !ok {
+           hash[val] = val
+       }else{
+           delete(hash,val)
+       }
+   }
+   for key := range hash {
+       ans = append(ans,key)
+   }
+    return ans
+}
