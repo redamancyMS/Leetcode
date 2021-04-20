@@ -1,0 +1,24 @@
+func reverseWords(s string) string {
+    ans := ""
+    i := len(s)-1
+    for i >=0 {
+        j := i
+        for j >= 0 && s[j] == ' ' {
+            j--
+        }
+        k := j
+        for k >= 0 && s[k] !=' ' {
+            k--
+        }
+        ans += s[k+1:j+1]
+        ans += " "
+        i = k
+    }
+    res := []rune(ans)
+    t := len(res)-1
+    for t >= 0 && res[t] == ' ' {
+        t--
+    }
+    ans = string(res[:t+1])
+    return ans
+}
