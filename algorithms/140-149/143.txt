@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+//先用快慢指针拆分链表得到L1,L2
+//将L2链表反转得到L3
+//合并L1和L3
+func reorderList(head *ListNode)  {
+    if head == nil || head.Next == nil || head.Next.Next == nil {
+        return 
+    }
+    var p *ListNode
+    fast,slow := head,head
+    for fast != nil && fast.Next != nil {
+        p = slow
+        fast = fast.Next.Next
+        slow = slow.Next
+    }
+    p.Next = nil
+    count,l1,l2 :=1,head,reverseList(slow)
+    for l1 != nil && l2 != nil {
+        if count % 2 != 0 {
+            t1 := l1.Next
+            l1.Next = l2
+            l1 = t1
+        }else{
+            t2 := l2.Next
+            l2.Next = l1
+            l2 = t2
+        }
+        count++
+    }
+}
+
+func reverseList(head *ListNode) *ListNode{
+    var pre *ListNode
+    pre = nil
+    if head == nil || head.Next == nil {
+        return head
+    }
+    p,q := head,head.Next
+
+    for q != nil {
+        p.Next = pre
+        pre = p
+        p = q
+        q = q.Next
+    }
+    p.Next = pre
+    return p
+    
+}
